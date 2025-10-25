@@ -4,7 +4,7 @@
  */
 
 import { repl, evalScope } from '@strudel/core';
-import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
+import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds, samples } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
 import * as strudel from '@strudel/core';
 import * as tonal from '@strudel/tonal';
@@ -28,6 +28,10 @@ export async function initStrudel() {
     // Register built-in synthesizer sounds
     registerSynthSounds();
 
+    // Load sample library from the standard dirt-samples repository
+    // This includes piano, drums, and many other samples
+    await samples('github:tidalcycles/dirt-samples');
+
     // Import Strudel modules into global scope so pattern functions are available
     await evalScope(
       Promise.resolve(strudel),
@@ -44,6 +48,7 @@ export async function initStrudel() {
 
     isInitialized = true;
     console.log('✓ Strudel pattern system initialized');
+    console.log('✓ Sample library loaded (including piano, drums, and more)');
     return strudelRepl;
   } catch (error) {
     console.error('Failed to initialize Strudel:', error);
