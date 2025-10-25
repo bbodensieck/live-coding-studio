@@ -10,7 +10,7 @@ import {
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [code, setCode] = useState('note("c3 e3 g3 b3").s("sawtooth")')
+  const [code, setCode] = useState('note("c3 e3 g3 b3").sound("sawtooth")')
   const [error, setError] = useState(null)
   const cleanupRef = useRef(null)
 
@@ -166,18 +166,18 @@ function App() {
               <div className="space-y-3">
                 <ExampleCard 
                   title="Simple Pattern"
-                  code='note("c3 e3 g3 b3").s("sawtooth")'
-                  onUse={() => setCode('note("c3 e3 g3 b3").s("sawtooth")')}
+                  code='note("c3 e3 g3 b3").sound("sawtooth")'
+                  onUse={() => setCode('note("c3 e3 g3 b3").sound("sawtooth")')}
                 />
                 <ExampleCard 
                   title="Fast Pattern"
-                  code='note("c a f e").fast(2).s("square")'
-                  onUse={() => setCode('note("c a f e").fast(2).s("square")')}
+                  code='note("c a f e").fast(2).sound("square")'
+                  onUse={() => setCode('note("c a f e").fast(2).sound("square")')}
                 />
                 <ExampleCard 
                   title="Pattern with Effects"
-                  code='note("c3 [e3 g3] b3").s("triangle").lpf(1000).fast(2)'
-                  onUse={() => setCode('note("c3 [e3 g3] b3").s("triangle").lpf(1000).fast(2)')}
+                  code='note("c3 [e3 g3] b3").sound("triangle").lpf(1000).fast(2)'
+                  onUse={() => setCode('note("c3 [e3 g3] b3").sound("triangle").lpf(1000).fast(2)')}
                 />
               </div>
             </div>
