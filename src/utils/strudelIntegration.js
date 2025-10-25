@@ -4,7 +4,7 @@
  */
 
 import { repl, evalScope } from '@strudel/core';
-import { getAudioContext, initAudioOnFirstClick, webaudioOutput } from '@strudel/webaudio';
+import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
 import * as strudel from '@strudel/core';
 import * as tonal from '@strudel/tonal';
@@ -24,6 +24,9 @@ export async function initStrudel() {
   try {
     // Initialize audio on first interaction
     await initAudioOnFirstClick();
+
+    // Register built-in synthesizer sounds
+    registerSynthSounds();
 
     // Import Strudel modules into global scope so pattern functions are available
     await evalScope(
