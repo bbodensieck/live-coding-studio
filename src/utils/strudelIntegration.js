@@ -39,6 +39,7 @@ export async function initStrudel() {
     strudelRepl = repl({
       defaultOutput: webaudioOutput,
       getTime: () => getAudioContext().currentTime,
+      transpiler: transpiler,
     });
 
     isInitialized = true;
@@ -60,8 +61,8 @@ export async function evaluateStrudelPattern(code) {
   }
 
   try {
-    // Evaluate the code using Strudel's transpiler and evaluator
-    const result = await strudelRepl.evaluate(code, transpiler);
+    // Evaluate the code using Strudel's REPL (transpiler is configured in REPL)
+    const result = await strudelRepl.evaluate(code);
     return result;
   } catch (error) {
     console.error('Strudel pattern evaluation error:', error);
