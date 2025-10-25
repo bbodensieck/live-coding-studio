@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@strudel/core": "^1.2.4",
+    "@strudel/mini": "^1.2.4",
+    "@strudel/tonal": "^1.2.4",
+    "@strudel/transpiler": "^1.2.4",
+    "@strudel/webaudio": "^1.2.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tone": "^15.1.22"
