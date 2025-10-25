@@ -3,11 +3,9 @@
  * Provides Strudel-like musical pattern logic for the Live Coding Studio
  */
 
-import { repl, controls } from '@strudel/core';
+import { repl } from '@strudel/core';
 import { getAudioContext, initAudioOnFirstClick, webaudioOutput } from '@strudel/webaudio';
-import { evalScope } from '@strudel/core';
 import { transpiler } from '@strudel/transpiler';
-import { evaluate as strudelEvaluate } from '@strudel/transpiler';
 import '@strudel/tonal';
 import '@strudel/mini';
 

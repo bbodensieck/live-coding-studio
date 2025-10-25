@@ -7,6 +7,8 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 ## 🎵 Features
 
 - **Live Code Editor**: Write and evaluate musical patterns in real-time
+- **Dual Mode Support**: Switch between Tone.js and Strudel pattern systems
+- **Strudel Pattern Logic**: Use Strudel's powerful mini-notation for musical patterns
 - **Tone.js Integration**: Powerful audio synthesis and effects using [Tone.js](https://tonejs.github.io/)
 - **Web Audio API**: High-quality audio synthesis and effects
 - **Instant Feedback**: Evaluate code with keyboard shortcuts (Ctrl/Cmd + Enter)
@@ -15,7 +17,9 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 ## 🛠️ Technology Stack
 
 - **Framework**: React (for component-based UI)
-- **Audio Engine**: Web Audio API and Tone.js
+- **Audio Engines**: 
+  - [Tone.js](https://tonejs.github.io/) - Web Audio framework
+  - [Strudel](https://strudel.cc/) - Pattern-based live coding system
 - **Build Tool**: Vite (for fast development and optimized production builds)
 
 ## 🚀 Getting Started
@@ -71,14 +75,17 @@ The deployment is configured in `.github/workflows/deploy.yml` and uses GitHub A
 
 ## 📝 Usage
 
-1. **Write Code**: Enter Tone.js code in the code editor
-2. **Evaluate**: Press `Ctrl/Cmd + Enter` or click the "Play" button
-3. **Listen**: Hear your audio play in real-time
-4. **Stop**: Click the "Stop" button to halt playback
+### Getting Started
 
-### Example Patterns
+1. **Select Mode**: Choose between Tone.js or Strudel mode using the mode switcher in the top navigation
+2. **Write Code**: Enter your code in the editor
+3. **Evaluate**: Press `Ctrl/Cmd + Enter` or click the "Execute" button
+4. **Listen**: Hear your audio play in real-time
+5. **Stop**: Click the "Stop" button to halt playback
 
-Try these examples to get started:
+### Tone.js Mode
+
+Use standard Tone.js syntax for low-level audio control:
 
 ```javascript
 // Simple note
@@ -98,9 +105,40 @@ part.start();
 Tone.Transport.start();
 ```
 
+### Strudel Mode
+
+Use Strudel's powerful pattern notation for expressive musical patterns:
+
+```javascript
+// Simple note pattern
+note("c3 e3 g3 b3").s("piano")
+
+// Drum pattern with rhythm
+s("bd sd, hh*4").bank("RolandTR808")
+
+// Pattern with transformations
+note("c3 [e3 g3] b3").s("sawtooth").lpf(1000).fast(2)
+
+// Complex polyrhythmic pattern
+stack(
+  note("c3 e3 g3").s("piano"),
+  s("bd*2 sd").bank("RolandTR808")
+)
+```
+
+#### Strudel Pattern Features
+
+- **Mini-notation**: Concise pattern syntax like `"c3 e3 g3"`
+- **Rhythmic variations**: Use `*` for subdivision, `/` for elongation
+- **Pattern transformations**: `.fast()`, `.slow()`, `.rev()`, `.every()`
+- **Effects**: `.lpf()`, `.hpf()`, `.delay()`, `.reverb()` and more
+- **Stacking**: Combine multiple patterns with `stack()`
+
 ## 🎹 Learn More
 
 - [Tone.js Documentation](https://tonejs.github.io/)
+- [Strudel Website](https://strudel.cc/)
+- [Strudel Tutorial](https://strudel.cc/learn/getting-started/)
 - [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 
 ## 📄 License
