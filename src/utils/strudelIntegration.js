@@ -3,11 +3,12 @@
  * Provides Strudel-like musical pattern logic for the Live Coding Studio
  */
 
-import { repl } from '@strudel/core';
-import { getAudioContext, initAudioOnFirstClick, webaudioOutput } from '@strudel/webaudio';
+import { repl, evalScope } from '@strudel/core';
+import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
-import '@strudel/tonal';
-import '@strudel/mini';
+import * as strudel from '@strudel/core';
+import * as tonal from '@strudel/tonal';
+import * as mini from '@strudel/mini';
 
 let strudelRepl = null;
 let isInitialized = false;
@@ -24,10 +25,21 @@ export async function initStrudel() {
     // Initialize audio on first interaction
     await initAudioOnFirstClick();
 
+    // Register built-in synthesizer sounds
+    registerSynthSounds();
+
+    // Import Strudel modules into global scope so pattern functions are available
+    await evalScope(
+      Promise.resolve(strudel),
+      Promise.resolve(tonal),
+      Promise.resolve(mini),
+    );
+
     // Create Strudel REPL instance
     strudelRepl = repl({
       defaultOutput: webaudioOutput,
       getTime: () => getAudioContext().currentTime,
+      transpiler: transpiler,
     });
 
     isInitialized = true;
@@ -49,8 +61,8 @@ export async function evaluateStrudelPattern(code) {
   }
 
   try {
-    // Evaluate the code using Strudel's transpiler and evaluator
-    const result = await strudelRepl.evaluate(code, transpiler);
+    // Evaluate the code using Strudel's REPL (transpiler is configured in REPL)
+    const result = await strudelRepl.evaluate(code);
     return result;
   } catch (error) {
     console.error('Strudel pattern evaluation error:', error);
