@@ -4,7 +4,7 @@
  */
 
 import { repl, evalScope } from '@strudel/core';
-import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds } from '@strudel/webaudio';
+import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds, samples } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
 import * as strudel from '@strudel/core';
 import * as tonal from '@strudel/tonal';
@@ -27,6 +27,12 @@ export async function initStrudel() {
 
     // Register built-in synthesizer sounds
     registerSynthSounds();
+
+    // Load sample libraries
+    // 1. Standard dirt-samples for drums and percussion
+    await samples('github:tidalcycles/dirt-samples');
+    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/piano.json');
+    console.log('✓ Sample library loaded (piano, drums, and more)');
 
     // Import Strudel modules into global scope so pattern functions are available
     await evalScope(
