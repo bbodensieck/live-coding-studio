@@ -2,6 +2,8 @@
 
 A Single Page Application (SPA) that provides a place for live coding music in the browser.
 
+🌐 **Live Demo**: [https://bbodensieck.github.io/live-coding-spike-/](https://bbodensieck.github.io/live-coding-spike-/)
+
 ## 🎵 Features
 
 - **Live Code Editor**: Write and evaluate musical patterns in real-time
@@ -56,6 +58,16 @@ The built files will be in the `dist` directory.
 ```bash
 npm run preview
 ```
+
+## 🚀 Deployment
+
+This project is automatically deployed to GitHub Pages when changes are pushed to the `main` branch. The deployment workflow:
+
+1. Builds the project using Vite
+2. Uploads the build artifacts to GitHub Pages
+3. Deploys to [https://bbodensieck.github.io/live-coding-spike-/](https://bbodensieck.github.io/live-coding-spike-/)
+
+The deployment is configured in `.github/workflows/deploy.yml` and uses GitHub Actions.
 
 ## 📝 Usage
 
