@@ -30,7 +30,7 @@ function LiveCodeEditor({ code, onChange, onEvaluate }) {
         className="w-full min-h-[400px] p-6 font-mono text-sm leading-relaxed bg-[#0d1117] text-gray-300 border-0 resize-y outline-none focus:ring-2 focus:ring-dj-accent/30 placeholder-gray-600"
         value={code}
         onChange={handleChange}
-        placeholder="// Enter your Tone.js code here...\n// Press Ctrl/Cmd + Enter to execute\n\nconst synth = new Tone.Synth().toDestination();\nsynth.triggerAttackRelease('C4', '8n');"
+        placeholder="// Enter your Strudel pattern code here...\n// Press Ctrl/Cmd + Enter to execute\n\nnote('c3 e3 g3 b3').sound('sawtooth')"
         spellCheck="false"
         style={{
           tabSize: 2,
