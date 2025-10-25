@@ -28,10 +28,21 @@ export async function initStrudel() {
     // Register built-in synthesizer sounds
     registerSynthSounds();
 
-    // Load sample library from the standard dirt-samples repository
-    // This includes piano, drums, and many other samples
+    // Load sample libraries
+    // 1. Standard dirt-samples for drums and percussion
     await samples('github:tidalcycles/dirt-samples');
-    console.log('✓ Sample library loaded (piano, drums, and more)');
+    
+    // 2. Load additional samples including piano-like instruments
+    //    Note: 'piano' is mapped to 'rhodes' as dirt-samples doesn't include piano
+    await samples('github:felixroos/samples');
+    await samples({
+      piano: {
+        c2: 'https://raw.githubusercontent.com/felixroos/samples/main/rhodes/rhodes_c4_sainttropez.ogg',
+        c3: 'https://raw.githubusercontent.com/felixroos/samples/main/rhodes/rhodes_c4_sainttropez.ogg',
+        c4: 'https://raw.githubusercontent.com/felixroos/samples/main/rhodes/rhodes_c4_sainttropez.ogg',
+      }
+    });
+    console.log('✓ Sample libraries loaded (drums, piano, and more)');
 
     // Import Strudel modules into global scope so pattern functions are available
     await evalScope(
