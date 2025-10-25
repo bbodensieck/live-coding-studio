@@ -31,6 +31,7 @@ export async function initStrudel() {
     // Load sample library from the standard dirt-samples repository
     // This includes piano, drums, and many other samples
     await samples('github:tidalcycles/dirt-samples');
+    console.log('✓ Sample library loaded (piano, drums, and more)');
 
     // Import Strudel modules into global scope so pattern functions are available
     await evalScope(
@@ -48,7 +49,6 @@ export async function initStrudel() {
 
     isInitialized = true;
     console.log('✓ Strudel pattern system initialized');
-    console.log('✓ Sample library loaded (including piano, drums, and more)');
     return strudelRepl;
   } catch (error) {
     console.error('Failed to initialize Strudel:', error);
