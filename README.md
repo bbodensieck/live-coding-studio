@@ -29,8 +29,8 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/bbodensieck/live-coding-spike-.git
-cd live-coding-spike-
+git clone https://github.com/bbodensieck/live-coding-studio.git
+cd live-coding-studio
 ```
 
 2. Install dependencies:
@@ -65,7 +65,7 @@ This project is automatically deployed to GitHub Pages when changes are pushed t
 
 1. Builds the project using Vite
 2. Uploads the build artifacts to GitHub Pages
-3. Deploys to [https://bbodensieck.github.io/live-coding-spike-/](https://bbodensieck.github.io/live-coding-spike-/)
+3. Deploys to [https://bbodensieck.github.io/live-coding-studio/](https://bbodensieck.github.io/live-coding-studio/)
 
 The deployment is configured in `.github/workflows/deploy.yml` and uses GitHub Actions.
 
