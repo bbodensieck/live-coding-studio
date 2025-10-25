@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import LiveCodeEditor from './components/LiveCodeEditor'
 import Controls from './components/Controls'
-import * as Tone from 'tone'
 import {
   initStrudel,
   evaluateStrudelPattern,
@@ -11,19 +10,9 @@ import {
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [mode, setMode] = useState('tonejs') // 'tonejs' or 'strudel'
-  const [code, setCode] = useState('const synth = new Tone.Synth().toDestination();\nconst now = Tone.now();\nsynth.triggerAttackRelease("C4", "8n", now);\nsynth.triggerAttackRelease("E4", "8n", now + 0.5);\nsynth.triggerAttackRelease("G4", "8n", now + 1);\nsynth.triggerAttackRelease("B4", "8n", now + 1.5);')
+  const [code, setCode] = useState('note("c3 e3 g3 b3").s("sawtooth")')
   const [error, setError] = useState(null)
   const cleanupRef = useRef(null)
-
-  // Update code example when mode changes
-  useEffect(() => {
-    if (mode === 'strudel') {
-      setCode('note("c3 e3 g3 b3").s("piano")');
-    } else {
-      setCode('const synth = new Tone.Synth().toDestination();\nconst now = Tone.now();\nsynth.triggerAttackRelease("C4", "8n", now);\nsynth.triggerAttackRelease("E4", "8n", now + 0.5);\nsynth.triggerAttackRelease("G4", "8n", now + 1);\nsynth.triggerAttackRelease("B4", "8n", now + 1.5);');
-    }
-  }, [mode]);
 
   useEffect(() => {
     // Cleanup on unmount
@@ -43,60 +32,24 @@ function App() {
         return
       }
 
-      if (mode === 'strudel') {
-        // Use Strudel pattern evaluation
-        await initStrudel()
-        await evaluateStrudelPattern(codeToEvaluate)
-        setIsPlaying(true)
-        
-        // Note: Strudel manages its own playback lifecycle
-        // We'll check the playing state periodically
-        const checkInterval = setInterval(() => {
-          const playing = isStrudelPlaying()
-          setIsPlaying(playing)
-          if (!playing) {
-            clearInterval(checkInterval)
-          }
-        }, 100)
-        
-        cleanupRef.current = () => {
+      // Use Strudel pattern evaluation
+      await initStrudel()
+      await evaluateStrudelPattern(codeToEvaluate)
+      setIsPlaying(true)
+      
+      // Note: Strudel manages its own playback lifecycle
+      // We'll check the playing state periodically
+      const checkInterval = setInterval(() => {
+        const playing = isStrudelPlaying()
+        setIsPlaying(playing)
+        if (!playing) {
           clearInterval(checkInterval)
-          stopStrudel()
         }
-      } else {
-        // Use Tone.js evaluation (original behavior)
-        await Tone.start()
-        
-        // Stop any previously playing sounds
-        if (cleanupRef.current) {
-          cleanupRef.current()
-          cleanupRef.current = null
-        }
-
-        // Create a function with Tone in scope
-        const evalFunction = new Function('Tone', codeToEvaluate)
-        
-        // Execute the code
-        evalFunction(Tone)
-        
-        // Set up cleanup to dispose all synths after some time
-        const timeoutId = setTimeout(() => {
-          Tone.Transport.stop()
-          Tone.Transport.cancel()
-        }, 10000) // Stop after 10 seconds
-        
-        cleanupRef.current = () => {
-          clearTimeout(timeoutId)
-          Tone.Transport.stop()
-          Tone.Transport.cancel()
-        }
-        
-        setIsPlaying(true)
-        
-        // Auto-stop after the pattern completes
-        setTimeout(() => {
-          setIsPlaying(false)
-        }, 10000)
+      }, 100)
+      
+      cleanupRef.current = () => {
+        clearInterval(checkInterval)
+        stopStrudel()
       }
     } catch (err) {
       setError(err.message)
@@ -114,12 +67,7 @@ function App() {
       cleanupRef.current()
       cleanupRef.current = null
     }
-    if (mode === 'strudel') {
-      stopStrudel()
-    } else {
-      Tone.Transport.stop()
-      Tone.Transport.cancel()
-    }
+    stopStrudel()
     setIsPlaying(false)
     setError(null)
   }
@@ -145,34 +93,11 @@ function App() {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-white tracking-tight">Live Coding Studio</h1>
-                  <p className="text-xs text-gray-400 font-mono">Powered by Tone.js, Strudel & Web Audio API</p>
+                  <p className="text-xs text-gray-400 font-mono">Powered by Strudel & Web Audio API</p>
                 </div>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              {/* Mode Switcher */}
-              <div className="flex items-center bg-dj-dark rounded-lg border border-gray-700 p-1">
-                <button
-                  onClick={() => setMode('tonejs')}
-                  className={`px-3 py-1 text-xs font-semibold rounded transition-all ${
-                    mode === 'tonejs'
-                      ? 'bg-dj-accent text-black shadow-neon'
-                      : 'text-gray-400 hover:text-gray-300'
-                  }`}
-                >
-                  Tone.js
-                </button>
-                <button
-                  onClick={() => setMode('strudel')}
-                  className={`px-3 py-1 text-xs font-semibold rounded transition-all ${
-                    mode === 'strudel'
-                      ? 'bg-dj-purple text-white shadow-neon'
-                      : 'text-gray-400 hover:text-gray-300'
-                  }`}
-                >
-                  Strudel
-                </button>
-              </div>
               <div className="px-3 py-1 bg-dj-dark rounded-md border border-gray-700">
                 <span className="text-xs text-gray-400 font-mono">v1.0.0</span>
               </div>
@@ -236,46 +161,24 @@ function App() {
             <div className="bg-dj-panel rounded-xl border border-gray-800 shadow-panel p-6">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center space-x-2">
                 <span className="text-dj-accent">⚡</span>
-                <span>Quick Start Examples - {mode === 'strudel' ? 'Strudel' : 'Tone.js'}</span>
+                <span>Quick Start Examples</span>
               </h3>
               <div className="space-y-3">
-                {mode === 'tonejs' ? (
-                  <>
-                    <ExampleCard 
-                      title="Simple Synth"
-                      code='const synth = new Tone.Synth().toDestination();\nsynth.triggerAttackRelease("C4", "8n");'
-                      onUse={() => setCode('const synth = new Tone.Synth().toDestination();\nsynth.triggerAttackRelease("C4", "8n");')}
-                    />
-                    <ExampleCard 
-                      title="FM Synthesis"
-                      code='const synth = new Tone.FMSynth().toDestination();\nsynth.triggerAttackRelease("G3", "2n");'
-                      onUse={() => setCode('const synth = new Tone.FMSynth().toDestination();\nsynth.triggerAttackRelease("G3", "2n");')}
-                    />
-                    <ExampleCard 
-                      title="Melodic Sequence"
-                      code='const synth = new Tone.Synth().toDestination();\nconst now = Tone.now();\nsynth.triggerAttackRelease("C4", "8n", now);\nsynth.triggerAttackRelease("E4", "8n", now + 0.5);\nsynth.triggerAttackRelease("G4", "8n", now + 1);\nsynth.triggerAttackRelease("B4", "8n", now + 1.5);'
-                      onUse={() => setCode('const synth = new Tone.Synth().toDestination();\nconst now = Tone.now();\nsynth.triggerAttackRelease("C4", "8n", now);\nsynth.triggerAttackRelease("E4", "8n", now + 0.5);\nsynth.triggerAttackRelease("G4", "8n", now + 1);\nsynth.triggerAttackRelease("B4", "8n", now + 1.5);')}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <ExampleCard 
-                      title="Simple Pattern"
-                      code='note("c3 e3 g3 b3").s("piano")'
-                      onUse={() => setCode('note("c3 e3 g3 b3").s("piano")')}
-                    />
-                    <ExampleCard 
-                      title="Drum Pattern"
-                      code='s("bd sd, hh*4").bank("RolandTR808")'
-                      onUse={() => setCode('s("bd sd, hh*4").bank("RolandTR808")')}
-                    />
-                    <ExampleCard 
-                      title="Pattern with Effects"
-                      code='note("c3 [e3 g3] b3").s("sawtooth").lpf(1000).fast(2)'
-                      onUse={() => setCode('note("c3 [e3 g3] b3").s("sawtooth").lpf(1000).fast(2)')}
-                    />
-                  </>
-                )}
+                <ExampleCard 
+                  title="Simple Pattern"
+                  code='note("c3 e3 g3 b3").s("sawtooth")'
+                  onUse={() => setCode('note("c3 e3 g3 b3").s("sawtooth")')}
+                />
+                <ExampleCard 
+                  title="Fast Pattern"
+                  code='note("c a f e").fast(2).s("square")'
+                  onUse={() => setCode('note("c a f e").fast(2).s("square")')}
+                />
+                <ExampleCard 
+                  title="Pattern with Effects"
+                  code='note("c3 [e3 g3] b3").s("triangle").lpf(1000).fast(2)'
+                  onUse={() => setCode('note("c3 [e3 g3] b3").s("triangle").lpf(1000).fast(2)')}
+                />
               </div>
             </div>
 
@@ -287,7 +190,7 @@ function App() {
               <div className="space-y-3 text-sm text-gray-400">
                 <div className="flex items-start space-x-3">
                   <span className="text-dj-accent font-bold">1.</span>
-                  <p>Select {mode === 'strudel' ? 'Strudel' : 'Tone.js'} mode and write your code</p>
+                  <p>Write your Strudel pattern code in the editor</p>
                 </div>
                 <div className="flex items-start space-x-3">
                   <span className="text-dj-accent font-bold">2.</span>
@@ -297,38 +200,23 @@ function App() {
                   <span className="text-dj-accent font-bold">3.</span>
                   <p>Listen to your creation and iterate in real-time</p>
                 </div>
-                {mode === 'strudel' && (
-                  <div className="mt-4 p-3 bg-dj-purple/10 border border-dj-purple/30 rounded-md">
-                    <p className="text-xs text-dj-purple font-semibold mb-1">💡 Strudel Tips:</p>
-                    <ul className="text-xs space-y-1 list-disc list-inside">
-                      <li>Use mini-notation: <code className="font-mono">"c3 e3 g3"</code></li>
-                      <li>Stack patterns: <code className="font-mono">s("bd sd, hh*4")</code></li>
-                      <li>Transform: <code className="font-mono">.fast(2)</code>, <code className="font-mono">.slow(0.5)</code></li>
-                    </ul>
-                  </div>
-                )}
+                <div className="mt-4 p-3 bg-dj-purple/10 border border-dj-purple/30 rounded-md">
+                  <p className="text-xs text-dj-purple font-semibold mb-1">💡 Strudel Tips:</p>
+                  <ul className="text-xs space-y-1 list-disc list-inside">
+                    <li>Use mini-notation: <code className="font-mono">"c3 e3 g3"</code></li>
+                    <li>Built-in synths: <code className="font-mono">sawtooth</code>, <code className="font-mono">square</code>, <code className="font-mono">triangle</code>, <code className="font-mono">sine</code></li>
+                    <li>Transform: <code className="font-mono">.fast(2)</code>, <code className="font-mono">.slow(0.5)</code></li>
+                  </ul>
+                </div>
                 <div className="mt-6 pt-4 border-t border-gray-800">
                   <p className="text-xs text-gray-500 mb-2">Learn More:</p>
                   <div className="flex flex-wrap gap-2">
-                    {mode === 'tonejs' ? (
-                      <>
-                        <a href="https://tonejs.github.io/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-md text-xs border border-gray-700 transition-colors">
-                          Tone.js Docs
-                        </a>
-                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-md text-xs border border-gray-700 transition-colors">
-                          Web Audio API
-                        </a>
-                      </>
-                    ) : (
-                      <>
-                        <a href="https://strudel.cc/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-md text-xs border border-gray-700 transition-colors">
-                          Strudel Website
-                        </a>
-                        <a href="https://strudel.cc/learn/getting-started/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-md text-xs border border-gray-700 transition-colors">
-                          Getting Started
-                        </a>
-                      </>
-                    )}
+                    <a href="https://strudel.cc/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-md text-xs border border-gray-700 transition-colors">
+                      Strudel Website
+                    </a>
+                    <a href="https://strudel.cc/learn/getting-started/" target="_blank" rel="noopener noreferrer" className="px-3 py-1 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-md text-xs border border-gray-700 transition-colors">
+                      Getting Started
+                    </a>
                   </div>
                 </div>
               </div>
