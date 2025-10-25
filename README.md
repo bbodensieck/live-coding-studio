@@ -2,7 +2,7 @@
 
 A Single Page Application (SPA) that provides a place for live coding music in the browser.
 
-🌐 **Live Demo**: [https://bbodensieck.github.io/live-coding-spike-/](https://bbodensieck.github.io/live-coding-spike-/)
+🌐 **Live Demo**: [https://bbodensieck.github.io/live-coding-spike-/](https://bbodensieck.github.io/live-coding-studio/)
 
 ## 🎵 Features
 
