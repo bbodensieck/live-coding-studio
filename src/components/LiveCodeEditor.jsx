@@ -35,7 +35,7 @@ function LiveCodeEditor({ code, onChange, onEvaluate }) {
         className="code-textarea"
         value={code}
         onChange={handleChange}
-        placeholder="Enter your Strudel pattern here..."
+        placeholder="Enter your Tone.js code here..."
         spellCheck="false"
       />
     </div>

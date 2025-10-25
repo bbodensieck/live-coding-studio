@@ -5,9 +5,8 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 ## 🎵 Features
 
 - **Live Code Editor**: Write and evaluate musical patterns in real-time
-- **Strudel Integration**: Powerful pattern-based music composition using [Strudel](https://strudel.cc/)
+- **Tone.js Integration**: Powerful audio synthesis and effects using [Tone.js](https://tonejs.github.io/)
 - **Web Audio API**: High-quality audio synthesis and effects
-- **Tone.js Support**: Advanced audio capabilities through the Tone.js library
 - **Instant Feedback**: Evaluate code with keyboard shortcuts (Ctrl/Cmd + Enter)
 - **Interactive Controls**: Play and stop patterns with easy-to-use buttons
 
@@ -15,7 +14,6 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 
 - **Framework**: React (for component-based UI)
 - **Audio Engine**: Web Audio API and Tone.js
-- **Live Coding Engine**: Strudel (for musical pattern logic)
 - **Build Tool**: Vite (for fast development and optimized production builds)
 
 ## 🚀 Getting Started
@@ -61,9 +59,9 @@ npm run preview
 
 ## 📝 Usage
 
-1. **Write Code**: Enter Strudel patterns in the code editor
+1. **Write Code**: Enter Tone.js code in the code editor
 2. **Evaluate**: Press `Ctrl/Cmd + Enter` or click the "Play" button
-3. **Listen**: Hear your pattern play in real-time
+3. **Listen**: Hear your audio play in real-time
 4. **Stop**: Click the "Stop" button to halt playback
 
 ### Example Patterns
@@ -71,22 +69,25 @@ npm run preview
 Try these examples to get started:
 
 ```javascript
-// Simple melody
-note("c a f e").s("piano")
+// Simple note
+const synth = new Tone.Synth().toDestination();
+synth.triggerAttackRelease("C4", "8n");
 
-// Synth with filter
-note("c3 eb3 g3").s("sawtooth").lpf(800)
+// FM synthesis
+const synth = new Tone.FMSynth().toDestination();
+synth.triggerAttackRelease("G3", "2n");
 
-// Drum pattern
-sound("bd sd bd sd").speed(1)
-
-// Chord progression
-note("<c e g b>").scale("C:minor").s("triangle")
+// Sequence
+const part = new Tone.Part((time, note) => {
+  const synth = new Tone.Synth().toDestination();
+  synth.triggerAttackRelease(note, "8n", time);
+}, [["0:0", "C4"], ["0:1", "E4"], ["0:2", "G4"]]);
+part.start();
+Tone.Transport.start();
 ```
 
 ## 🎹 Learn More
 
-- [Strudel Documentation](https://strudel.cc/)
 - [Tone.js Documentation](https://tonejs.github.io/)
 - [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 
