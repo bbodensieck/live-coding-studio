@@ -1,22 +1,46 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@import "tailwindcss";
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+  :root {
+    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    background: #0a0a0a;
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+  }
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
+@theme {
+  --color-dj-dark: #0a0a0a;
+  --color-dj-darker: #050505;
+  --color-dj-panel: #1a1a1a;
+  --color-dj-accent: #00ff88;
+  --color-dj-accent-dark: #00cc6a;
+  --color-dj-purple: #8b5cf6;
+  --color-dj-blue: #3b82f6;
+  --color-dj-red: #ef4444;
+  
+  --font-family-mono: 'JetBrains Mono', Monaco, Menlo, 'Ubuntu Mono', monospace;
+  
+  --shadow-neon: 0 0 20px rgb(0 255 136 / 0.5);
+  --shadow-neon-strong: 0 0 30px rgb(0 255 136 / 0.8);
+  --shadow-panel: 0 8px 32px rgb(0 0 0 / 0.8);
 }
 
-#root {
-  width: 100%;
-  min-height: 100vh;
-}
+
 

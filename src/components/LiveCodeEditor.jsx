@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import './LiveCodeEditor.css'
 
 function LiveCodeEditor({ code, onChange, onEvaluate }) {
   const textareaRef = useRef(null)
@@ -25,18 +24,18 @@ function LiveCodeEditor({ code, onChange, onEvaluate }) {
   }
 
   return (
-    <div className="live-code-editor">
-      <div className="editor-header">
-        <span className="editor-label">Code Editor</span>
-        <span className="editor-hint">Ctrl/Cmd + Enter to evaluate</span>
-      </div>
+    <div className="p-0">
       <textarea
         ref={textareaRef}
-        className="code-textarea"
+        className="w-full min-h-[400px] p-6 font-mono text-sm leading-relaxed bg-[#0d1117] text-gray-300 border-0 resize-y outline-none focus:ring-2 focus:ring-dj-accent/30 placeholder-gray-600"
         value={code}
         onChange={handleChange}
-        placeholder="Enter your Tone.js code here..."
+        placeholder="// Enter your Tone.js code here...\n// Press Ctrl/Cmd + Enter to execute\n\nconst synth = new Tone.Synth().toDestination();\nsynth.triggerAttackRelease('C4', '8n');"
         spellCheck="false"
+        style={{
+          tabSize: 2,
+          fontFamily: "'JetBrains Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace",
+        }}
       />
     </div>
   )
