@@ -28,8 +28,8 @@ export async function initStrudel() {
     // Register built-in synthesizer sounds
     registerSynthSounds();
 
-    // Load sample library from the standard dirt-samples repository
-    // This includes piano, drums, and many other samples
+    // Load sample libraries
+    // 1. Standard dirt-samples for drums and percussion
     await samples('github:tidalcycles/dirt-samples');
     await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/piano.json');
     console.log('✓ Sample library loaded (piano, drums, and more)');
