@@ -6,6 +6,7 @@
 import { repl, evalScope } from '@strudel/core';
 import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds, samples } from '@strudel/webaudio';
 import { transpiler } from '@strudel/transpiler';
+import { registerSoundfonts } from '@strudel/soundfonts';
 import * as strudel from '@strudel/core';
 import * as tonal from '@strudel/tonal';
 import * as mini from '@strudel/mini';
@@ -25,20 +26,17 @@ export async function initStrudel() {
     // Initialize audio on first interaction
     await initAudioOnFirstClick();
 
-    // Register built-in synthesizer sounds
+    // Register built-in synthesizer sounds (includes basic waveforms like sawtooth, square, etc.)
     registerSynthSounds();
+    
+    // Register GM (General MIDI) soundfonts for gm_* sounds
+    registerSoundfonts();
 
     // Load sample libraries
     // 1. Standard dirt-samples for drums and percussion
     await samples('github:tidalcycles/dirt-samples');
     await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/piano.json');
-    // 2. General MIDI sounds for melodic instruments  
-    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/tidal-drum-machines.json');
-    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/Dirt-Samples.json');
-    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/EmuSP12.json');
-    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/vcsl.json');
-    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/mridangam.json');
-    console.log('✓ Sample library loaded (piano, drums, GM sounds, and more)');
+    console.log('✓ Sample library loaded (piano, drums, and more)');
 
     // Import Strudel modules into global scope so pattern functions are available
     await evalScope(
