@@ -7,6 +7,7 @@ import {
   stopStrudel,
   isStrudelPlaying,
 } from './utils/strudelIntegration'
+import examples from './examples'
 
 function App() {
   const [isPlaying, setIsPlaying] = useState(false)
@@ -157,28 +158,22 @@ function App() {
           />
 
           {/* Examples Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             <div className="bg-dj-panel rounded-xl border border-gray-800 shadow-panel p-6">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center space-x-2">
                 <span className="text-dj-accent">⚡</span>
-                <span>Quick Start Examples</span>
+                <span>Examples</span>
               </h3>
-              <div className="space-y-3">
-                <ExampleCard 
-                  title="Simple Pattern"
-                  code='note("c3 e3 g3 b3").sound("sawtooth")'
-                  onUse={() => setCode('note("c3 e3 g3 b3").sound("sawtooth")')}
-                />
-                <ExampleCard 
-                  title="Fast Pattern"
-                  code='note("c a f e").fast(2).sound("square")'
-                  onUse={() => setCode('note("c a f e").fast(2).sound("square")')}
-                />
-                <ExampleCard 
-                  title="Pattern with Effects"
-                  code='note("c3 [e3 g3] b3").sound("triangle").lpf(1000).fast(2)'
-                  onUse={() => setCode('note("c3 [e3 g3] b3").sound("triangle").lpf(1000).fast(2)')}
-                />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                {examples.map((example) => (
+                  <ExampleCard 
+                    key={example.id}
+                    title={example.title}
+                    description={example.description}
+                    code={example.code}
+                    onUse={() => setCode(example.code)}
+                  />
+                ))}
               </div>
             </div>
 
@@ -239,14 +234,19 @@ function App() {
   )
 }
 
-function ExampleCard({ title, code, onUse }) {
+function ExampleCard({ title, description, code, onUse }) {
   return (
     <div className="bg-gray-900 rounded-lg border border-gray-800 p-4 hover:border-dj-accent/30 transition-colors group">
       <div className="flex items-start justify-between mb-2">
-        <h4 className="text-sm font-semibold text-gray-300 group-hover:text-dj-accent transition-colors">{title}</h4>
+        <div className="flex-1 pr-2">
+          <h4 className="text-sm font-semibold text-gray-300 group-hover:text-dj-accent transition-colors">{title}</h4>
+          {description && (
+            <p className="text-xs text-gray-500 mt-1">{description}</p>
+          )}
+        </div>
         <button
           onClick={onUse}
-          className="px-2 py-1 bg-dj-accent/10 hover:bg-dj-accent/20 text-dj-accent text-xs rounded-md border border-dj-accent/30 transition-colors"
+          className="px-2 py-1 bg-dj-accent/10 hover:bg-dj-accent/20 text-dj-accent text-xs rounded-md border border-dj-accent/30 transition-colors flex-shrink-0"
         >
           Use
         </button>
