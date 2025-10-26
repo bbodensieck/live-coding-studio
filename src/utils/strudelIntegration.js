@@ -14,6 +14,18 @@ import * as mini from '@strudel/mini';
 let strudelRepl = null;
 let isInitialized = false;
 
+async function loadSamples() {
+  const ds = "https://raw.githubusercontent.com/felixroos/dough-samples/main/";
+  return Promise.all([
+    samples(`${ds}/tidal-drum-machines.json`),
+    samples(`${ds}/piano.json`),
+    samples(`${ds}/Dirt-Samples.json`),
+    samples(`${ds}/EmuSP12.json`),
+    samples(`${ds}/vcsl.json`),
+    samples(`${ds}/mridangam.json`),
+  ]);
+}
+
 /**
  * Initialize Strudel REPL system
  */
@@ -28,14 +40,15 @@ export async function initStrudel() {
 
     // Register built-in synthesizer sounds (includes basic waveforms like sawtooth, square, etc.)
     registerSynthSounds();
-    
+
     // Register GM (General MIDI) soundfonts for gm_* sounds
     registerSoundfonts();
 
     // Load sample libraries
     // 1. Standard dirt-samples for drums and percussion
     await samples('github:tidalcycles/dirt-samples');
-    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/piano.json');
+    await loadSamples();
+    
     console.log('✓ Sample library loaded (piano, drums, and more)');
 
     // Import Strudel modules into global scope so pattern functions are available
