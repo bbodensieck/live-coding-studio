@@ -7,9 +7,7 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 ## 🎵 Features
 
 - **Live Code Editor**: Write and evaluate musical patterns in real-time
-- **Dual Mode Support**: Switch between Tone.js and Strudel pattern systems
 - **Strudel Pattern Logic**: Use Strudel's powerful mini-notation for musical patterns
-- **Tone.js Integration**: Powerful audio synthesis and effects using [Tone.js](https://tonejs.github.io/)
 - **Web Audio API**: High-quality audio synthesis and effects
 - **Instant Feedback**: Evaluate code with keyboard shortcuts (Ctrl/Cmd + Enter)
 - **Interactive Controls**: Play and stop patterns with easy-to-use buttons
@@ -17,9 +15,7 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 ## 🛠️ Technology Stack
 
 - **Framework**: React (for component-based UI)
-- **Audio Engines**: 
-  - [Tone.js](https://tonejs.github.io/) - Web Audio framework
-  - [Strudel](https://strudel.cc/) - Pattern-based live coding system
+- **Audio Engine**: [Strudel](https://strudel.cc/) - Pattern-based live coding system
 - **Build Tool**: Vite (for fast development and optimized production builds)
 
 ## 🚀 Getting Started
@@ -77,35 +73,12 @@ The deployment is configured in `.github/workflows/deploy.yml` and uses GitHub A
 
 ### Getting Started
 
-1. **Select Mode**: Choose between Tone.js or Strudel mode using the mode switcher in the top navigation
-2. **Write Code**: Enter your code in the editor
-3. **Evaluate**: Press `Ctrl/Cmd + Enter` or click the "Execute" button
-4. **Listen**: Hear your audio play in real-time
-5. **Stop**: Click the "Stop" button to halt playback
+1. **Write Code**: Enter your Strudel pattern code in the editor
+2. **Evaluate**: Press `Ctrl/Cmd + Enter` or click the "Execute" button
+3. **Listen**: Hear your audio play in real-time
+4. **Stop**: Click the "Stop" button to halt playback
 
-### Tone.js Mode
-
-Use standard Tone.js syntax for low-level audio control:
-
-```javascript
-// Simple note
-const synth = new Tone.Synth().toDestination();
-synth.triggerAttackRelease("C4", "8n");
-
-// FM synthesis
-const synth = new Tone.FMSynth().toDestination();
-synth.triggerAttackRelease("G3", "2n");
-
-// Sequence
-const part = new Tone.Part((time, note) => {
-  const synth = new Tone.Synth().toDestination();
-  synth.triggerAttackRelease(note, "8n", time);
-}, [["0:0", "C4"], ["0:1", "E4"], ["0:2", "G4"]]);
-part.start();
-Tone.Transport.start();
-```
-
-### Strudel Mode
+### Strudel Patterns
 
 Use Strudel's powerful pattern notation for expressive musical patterns:
 
@@ -136,7 +109,6 @@ stack(
 
 ## 🎹 Learn More
 
-- [Tone.js Documentation](https://tonejs.github.io/)
 - [Strudel Website](https://strudel.cc/)
 - [Strudel Tutorial](https://strudel.cc/learn/getting-started/)
 - [Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
