@@ -238,7 +238,7 @@ stack
  ,s("bd").gain(0.8)
  ]).bank("RolandTR909").room(0.2).color("yellow").velocity(1)
  
-.).cpm(128/4)`,
+).cpm(128/4)`,
     category: 'songs',
   },
 ];
