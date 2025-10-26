@@ -33,7 +33,11 @@ export async function initStrudel() {
     await samples('github:tidalcycles/dirt-samples');
     await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/piano.json');
     // 2. General MIDI sounds for melodic instruments  
-    await samples('github:felixroos/dough-samples/main/tidal');
+    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/tidal-drum-machines.json');
+    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/Dirt-Samples.json');
+    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/EmuSP12.json');
+    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/vcsl.json');
+    await samples('https://raw.githubusercontent.com/felixroos/dough-samples/main/mridangam.json');
     console.log('✓ Sample library loaded (piano, drums, GM sounds, and more)');
 
     // Import Strudel modules into global scope so pattern functions are available
