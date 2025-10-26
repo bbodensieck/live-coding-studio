@@ -4,7 +4,7 @@
  */
 
 import { repl, evalScope } from '@strudel/core';
-import { getAudioContext, initAudioOnFirstClick, webaudioOutput, registerSynthSounds, samples } from '@strudel/webaudio';
+import { getAudioContext, initAudioOnFirstClick, superdoughTrigger, registerSynthSounds, samples } from 'superdough';
 import { transpiler } from '@strudel/transpiler';
 import * as strudel from '@strudel/core';
 import * as tonal from '@strudel/tonal';
@@ -43,7 +43,7 @@ export async function initStrudel() {
 
     // Create Strudel REPL instance
     strudelRepl = repl({
-      defaultOutput: webaudioOutput,
+      defaultOutput: superdoughTrigger,
       getTime: () => getAudioContext().currentTime,
       transpiler: transpiler,
     });

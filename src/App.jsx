@@ -93,7 +93,7 @@ function App() {
                 </div>
                 <div>
                   <h1 className="text-2xl font-bold text-white tracking-tight">Live Coding Studio</h1>
-                  <p className="text-xs text-gray-400 font-mono">Powered by Strudel & Web Audio API</p>
+                  <p className="text-xs text-gray-400 font-mono">Powered by Superdough & Web Audio API</p>
                 </div>
               </div>
             </div>

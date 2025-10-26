@@ -19,7 +19,7 @@ A Single Page Application (SPA) that provides a place for live coding music in t
 - **Framework**: React (for component-based UI)
 - **Audio Engines**: 
   - [Tone.js](https://tonejs.github.io/) - Web Audio framework
-  - [Strudel](https://strudel.cc/) - Pattern-based live coding system
+  - [Strudel](https://strudel.cc/) - Pattern-based live coding system (using superdough)
 - **Build Tool**: Vite (for fast development and optimized production builds)
 
 ## 🚀 Getting Started
