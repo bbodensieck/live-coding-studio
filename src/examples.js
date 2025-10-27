@@ -200,8 +200,8 @@ stack(
     title: 'Jazz Piano Cocktail',
     description: 'Classic 1-6-2-5 jazz progression with extended piano chords',
     code: `// Jazz Piano Cocktail
-// Sophisticated jazz piano with 1-6-2-5 minor turnaround
-// Features extended chords: maj7, min6/9, altered dominants
+// Sophisticated jazz piano with 1-6-2-5 turnaround progression
+// Features extended chords: maj7, min7, dominant 7th voicings
 setCps(100/60/4);
 
 stack(
@@ -252,10 +252,10 @@ stack(
   // Deep upright bass
   n("0 ~ 3 ~ 5 ~ 7 5").scale("F2:minor").sound("gm_acoustic_bass").lpf(600).room(0.4).gain(0.7),
   
-  // Extended jazz chords - Fm9, Bbm9, Ebmaj7(#11), Ab13
+  // Extended jazz chords - Fm9, Bbm9, Ebmaj7, Ab7
   note("<Fm9 Bbm9 Ebmaj7 Ab7>").slow(4).voicing().sound("gm_epiano1").room(0.7).delay(0.2).gain(0.55),
   
-  // Add major 6/9 voicings for cocktail flavor
+  // Add extended voicings for depth and color
   note("<[F3 A3 C4 G4] [Bb3 D4 F4 C5] [Eb4 G4 Bb4 D5] [Ab3 C4 Eb4 Gb4]>").slow(4)
     .sound("gm_drawbar_organ").room(0.6).lpf(1000).gain(0.3),
   
