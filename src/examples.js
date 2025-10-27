@@ -196,6 +196,78 @@ stack(
     category: 'lounge',
   },
   {
+    id: 'jazz-piano-cocktail',
+    title: 'Jazz Piano Cocktail',
+    description: 'Classic 1-6-2-5 jazz progression with extended piano chords',
+    code: `// Jazz Piano Cocktail
+// Sophisticated jazz piano with 1-6-2-5 turnaround progression
+// Features extended chords: maj7, min7, dominant 7th voicings
+setCps(100/60/4);
+
+stack(
+  // Gentle brush pattern
+  sound("hh*8").gain(0.18).hpf(9000).room(0.6),
+  
+  // Soft jazz kick
+  sound("bd ~ ~ ~ bd ~ ~ ~").gain(0.55).lpf(700).room(0.3),
+  
+  // Rim clicks for accent
+  sound("~ ~ rim ~ ~ rim ~ ~").gain(0.3).room(0.5),
+  
+  // Walking bass - following chord roots
+  n("<0 5 2 4> <0 5 2 4>").scale("C2:major").sound("gm_acoustic_bass").lpf(550).room(0.3).gain(0.65),
+  
+  // Main piano - 1-6-2-5 progression with extensions
+  // Cmaj7 - Am7 - Dm7 - G7 (classic turnaround)
+  note("<Cmaj7 Am7 Dm7 G7>").slow(4).voicing().sound("gm_epiano1").room(0.7).delay(0.2).gain(0.6),
+  
+  // Add piano shell voicings for depth
+  note("<[C4 E4 G4 B4] [A3 C4 E4 G4] [D4 F4 A4 C5] [G3 B3 D4 F4]>").slow(4)
+    .sound("gm_epiano2").room(0.6).lpf(1200).gain(0.35),
+  
+  // Cocktail melody - jazz inflections
+  n("~ 0 2 ~ 4 ~ 6 7").scale("C5:major").sound("gm_vibraphone").room(0.7).delay(0.25).gain(0.4)
+)`,
+    category: 'lounge',
+  },
+  {
+    id: 'piano-bar-blues',
+    title: 'Piano Bar Blues',
+    description: 'Blues-inspired lounge with altered dominants and 9th chords',
+    code: `// Piano Bar Blues
+// Late night piano bar with rich jazz harmonies
+// Uses altered dominants and extended voicings
+setCps(88/60/4);
+
+stack(
+  // Laid-back kick
+  sound("bd ~ bd ~ ~ bd ~ ~").gain(0.6).lpf(750).room(0.3),
+  
+  // Swung hi-hats
+  sound("hh ~ hh ~ hh ~ hh hh").gain(0.22).hpf(8500).room(0.5),
+  
+  // Snare backbeat
+  sound("~ sd ~ ~ ~ sd ~ ~").gain(0.4).room(0.5),
+  
+  // Deep upright bass
+  n("0 ~ 3 ~ 5 ~ 7 5").scale("F2:minor").sound("gm_acoustic_bass").lpf(600).room(0.4).gain(0.7),
+  
+  // Extended jazz chords - Fm9, Bbm9, Ebmaj7, Ab7
+  note("<Fm9 Bbm9 Ebmaj7 Ab7>").slow(4).voicing().sound("gm_epiano1").room(0.7).delay(0.2).gain(0.55),
+  
+  // Add extended voicings for depth and color
+  note("<[F3 A3 C4 G4] [Bb3 D4 F4 C5] [Eb4 G4 Bb4 D5] [Ab3 C4 Eb4 Gb4]>").slow(4)
+    .sound("gm_drawbar_organ").room(0.6).lpf(1000).gain(0.3),
+  
+  // Bluesy melody with chromatic passing tones
+  n("~ 0 1 3 ~ 5 6 7").scale("F4:minor:pentatonic").sound("gm_alto_sax").room(0.7).delay(0.3).gain(0.45),
+  
+  // Atmospheric pad
+  note("<Fm Bbm Ebmaj7 Ab7>").slow(8).voicing().sound("gm_pad_warm").room(0.9).lpf(900).gain(0.3)
+)`,
+    category: 'lounge',
+  },
+  {
     id: 'rhythm-of-the-night',
     title: 'The Rhythm Of The Night',
     description: 'Classic 90s eurodance track by Corona (by eeefano)',
