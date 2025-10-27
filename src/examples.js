@@ -241,6 +241,45 @@ stack
 ).cpm(128/4)`,
     category: 'songs',
   },
+  {
+    id: 'in-the-air-tonight',
+    title: 'In The Air Tonight',
+    description: 'Iconic 80s track with legendary drum break and gated reverb',
+    code: `// "In The Air Tonight" 
+// Atmospheric intro with iconic drum break
+// Featuring the legendary gated reverb sound
+setCps(92/60/4);
+
+stack(
+  // Atmospheric synth pad - Dm-C-Bb progression
+  note("<Dm C Bb C>").slow(8).voicing().sound("gm_pad_new_age")
+    .room(0.9).lpf(800).gain(0.4),
+  
+  // Deep synth bass foundation
+  n("<0 ~ ~ ~ 10 ~ ~ ~ 8 ~ ~ ~ 10 ~ ~ ~>").scale("D1:minor")
+    .sound("gm_synth_bass_2").lpf(400).room(0.3).gain(0.65),
+  
+  // Minimal drum pattern (pre-break)
+  sound("~ ~ ~ ~ ~ ~ bd ~").gain(0.5).lpf(600).room(0.5),
+  
+  // ICONIC DRUM BREAK (uncomment for the legendary fill)
+  // sound("bd*4 sd*2 bd*2 [sd bd] bd*4 sd*4")
+  //   .bank("RolandTR808").room(2.5).gain(0.85).late(0.02),
+  
+  // Gated reverb snare (the signature sound)
+  sound("~ sd ~ ~").gain(0.7).room(2.5).lpf(3000)
+    .delay(0.15).mask("<1 1 1 0>"),
+  
+  // Hi-hat pattern with gated effect
+  sound("hh*8").gain(0.2).hpf(8000)
+    .room(1.5).mask("<1 0 1 1>").delay(0.1),
+  
+  // Ambient texture layer
+  n("~ 0 ~ 2 ~ 4 ~ 6").scale("D4:minor:pentatonic")
+    .sound("gm_vibraphone").room(0.9).delay(0.3).gain(0.25)
+)`,
+    category: 'songs',
+  },
 ];
 
 export default examples;
