@@ -241,6 +241,60 @@ stack
 ).cpm(128/4)`,
     category: 'songs',
   },
+  {
+    id: 'dance-monkey',
+    title: 'Dance Monkey',
+    description: 'Iconic 2019 hit by Tones and I - catchy pop beat with distinctive melody',
+    code: `// "Dance Monkey"
+// song @by Tones and I
+// Energetic pop track with syncopated rhythm
+setCps(98/60/4);
+
+stack(
+  // Punchy kick pattern - syncopated dance beat
+  sound("bd ~ bd ~ bd ~ ~ bd").gain(0.75).lpf(800).room(0.2),
+  
+  // Claps on 2 and 4 with some variations
+  sound("~ cp ~ cp ~ cp ~ [cp cp]").gain(0.5).room(0.4),
+  
+  // Hi-hats - continuous 16ths with accents
+  sound("hh*16").gain("<0.2 0.3 0.2 0.35>").hpf(8000).room(0.3),
+  
+  // Snare fills
+  sound("~ ~ ~ ~ ~ ~ sd [sd sd]").every(4, x => x.fast(2)).gain(0.4).room(0.3),
+  
+  // Bass line - driving the groove in F# minor
+  n("0 ~ 0 3 ~ 5 3 0").scale("F#2:minor").sound("gm_synth_bass_1").lpf(600).room(0.3).gain(0.8),
+  
+  // Main vocal melody hook - the iconic "Dance Monkey" riff
+  n("<[7 9 11 9 7 5 7 ~] [7 9 11 9 7 ~ ~ ~]>").slow(2)
+    .scale("F#4:minor")
+    .sound("gm_lead_1_square")
+    .room(0.5)
+    .delay(0.15)
+    .gain(0.65),
+  
+  // Chord progression - F#m, C#m, D, E
+  note("<F#m C#m D E>").slow(4)
+    .voicing()
+    .sound("gm_epiano2")
+    .room(0.6)
+    .lpf(1200)
+    .gain(0.45),
+  
+  // Atmospheric pad for depth
+  note("<F#m C#m D E>").slow(8)
+    .voicing()
+    .sound("gm_pad_warm")
+    .room(0.8)
+    .lpf(sine.range(800, 1400).slow(16))
+    .gain(0.3),
+  
+  // Percussive elements for texture
+  sound("~ ~ shaker_small*4 ~").gain(0.25).hpf(10000).room(0.5)
+)`,
+    category: 'songs',
+  },
 ];
 
 export default examples;
